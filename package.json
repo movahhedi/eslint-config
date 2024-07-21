@@ -1,6 +1,6 @@
 {
 	"name": "@movahhedi/eslint-config",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"description": "Shahab's ESLint config",
 	"keywords": [
 		"eslint",
@@ -33,6 +33,11 @@
 			"import": "./dist/prettier.js",
 			"require": "./dist/prettier.cjs",
 			"default": "./dist/prettier.js"
+		},
+		"./stylelint": {
+			"import": "./dist/stylelint.js",
+			"require": "./dist/stylelint.cjs",
+			"default": "./dist/stylelint.js"
 		}
 	},
 	"main": "./dist/index.js",
