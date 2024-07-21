@@ -1,0 +1,70 @@
+{
+	"name": "@movahhedi/eslint-config",
+	"version": "0.1.1",
+	"private": false,
+	"description": "Shahab's ESLint config",
+	"keywords": [
+		"eslint",
+		"config",
+		"eslint-config"
+	],
+	"homepage": "https://github.com/movahhedi/eslint-config",
+	"bugs": {
+		"url": "https://github.com/movahhedi/eslint-config"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/movahhedi/eslint-config"
+	},
+	"license": "MIT",
+	"author": "Shahab Movahhedi",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./eslint": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.js"
+		},
+		"./prettier": {
+			"import": "./dist/prettier.js",
+			"require": "./dist/prettier.cjs",
+			"default": "./dist/prettier.js"
+		}
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsup --format esm,cjs --clean --dts",
+		"prepublishOnly": "yarn build",
+		"update": "npx npm-check-updates -i"
+	},
+	"dependencies": {
+		"@eslint/js": "^9.7.0",
+		"eslint": "^9.7.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-define-config": "^2.1.0",
+		"eslint-plugin-package-json": "^0.15.2",
+		"eslint-plugin-perfectionist": "^2.11.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"eslint-plugin-react": "^7.35.0",
+		"globals": "^15.8.0",
+		"jsonc-eslint-parser": "^2.4.0",
+		"prettier": "^3.3.3",
+		"typescript-eslint": "^7.16.1"
+	},
+	"devDependencies": {
+		"npm-check-updates": "^16.14.20",
+		"prettier-define-config": "^1.0.1",
+		"tsup": "^8.2.1",
+		"typescript": "^5.5.3"
+	},
+	"packageManager": "yarn@4.3.1"
+}
