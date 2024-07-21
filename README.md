@@ -16,3 +16,19 @@ import movahhediConfig from "@movahhedi/eslint-config";
 
 export default movahhediConfig();
 ```
+
+Or if you want to add your own rules:
+
+```js
+// eslint.config.mjs
+import movahhediConfig from "@movahhedi/eslint-config";
+
+export default [
+	...movahhediConfig(),
+	{
+		rules: {
+			// your rules
+		},
+	},
+];
+```

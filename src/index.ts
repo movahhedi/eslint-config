@@ -546,7 +546,7 @@ interface IOptions {
 	tsconfig?: string;
 }
 
-export default function eslintConfig(options) {
+export default function eslintConfig(options: IOptions) {
 	return defineFlatConfig([
 		eslintJs.configs.recommended,
 		...tsEslint.configs.recommended,
