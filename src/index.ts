@@ -1,3 +1,5 @@
+// cspell:ignore chunkname lestin endregion camelcase
+
 import eslintJs from "@eslint/js";
 import { defineFlatConfig } from "eslint-define-config";
 // import { typescriptEslintParser } from "@typescript-eslint/parser";
@@ -11,6 +13,7 @@ import reactPlugin from "eslint-plugin-react";
 import globals from "globals";
 import tsEslint from "typescript-eslint";
 import packageJson from "eslint-plugin-package-json/configs/recommended";
+import unusedImports from "eslint-plugin-unused-imports";
 
 const longParentPath =
 	"{#,%,.," +
@@ -347,13 +350,13 @@ const rules = {
 	"@typescript-eslint/no-empty-interface": ["warn", { allowSingleExtends: true }],
 	"@typescript-eslint/no-explicit-any": ["off"],
 	"@typescript-eslint/no-unused-vars": [
-		"warn",
+		"off",
 		{
-			args: "none",
-			argsIgnorePattern: "^_",
+			// args: "none",
+			// argsIgnorePattern: "^_",
+			// varsIgnorePattern: "^_",
 			caughtErrorsIgnorePattern: "^_",
 			destructuredArrayIgnorePattern: "^_",
-			varsIgnorePattern: "^_",
 		},
 	],
 	"@typescript-eslint/consistent-type-imports": [
@@ -516,6 +519,17 @@ const rules = {
 			],
 		},
 	],
+
+	"unused-imports/no-unused-imports": "warn",
+	"unused-imports/no-unused-vars": [
+		"warn",
+		{
+			"vars": "all",
+			"varsIgnorePattern": "^_",
+			"args": "after-used",
+			"argsIgnorePattern": "^_",
+		},
+	]
 };
 //#endregion
 
@@ -587,6 +601,7 @@ export default function eslintConfig(options: IOptions) {
 				"@typescript-eslint": tsEslint.plugin,
 				react: reactPlugin,
 				perfectionist: perfectionist,
+				"unused-imports": unusedImports,
 			},
 
 			rules,
