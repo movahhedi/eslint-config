@@ -565,6 +565,7 @@ export default function eslintConfig(options: IOptions) {
 		eslintJs.configs.recommended,
 		...tsEslint.configs.recommended,
 		{
+			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			settings: {
 				// ecmascript: 6,
 				react: {
@@ -587,7 +588,6 @@ export default function eslintConfig(options: IOptions) {
 					...globals.node,
 				},
 			},
-			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
 			ignores: [
 				// "eslint.config.*",
 				"**/node_modules",
@@ -600,7 +600,7 @@ export default function eslintConfig(options: IOptions) {
 				// import: importPlugin,
 				"@typescript-eslint": tsEslint.plugin,
 				react: reactPlugin,
-				perfectionist: perfectionist,
+				perfectionist,
 				"unused-imports": unusedImports,
 			},
 
@@ -616,6 +616,22 @@ export default function eslintConfig(options: IOptions) {
 					...globals.amd,
 				},
 			},
+			ignores: [
+				// "eslint.config.*",
+				"**/node_modules",
+				"**/vendor",
+				"**/temp/**",
+				"**/dist/**",
+				"**/build/**",
+			],
+			plugins: {
+				// import: importPlugin,
+				"@typescript-eslint": tsEslint.plugin,
+				react: reactPlugin,
+				perfectionist,
+				"unused-imports": unusedImports,
+			},
+
 			rules,
 		},
 		{
