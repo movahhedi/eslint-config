@@ -181,24 +181,24 @@ const rules = {
 		"warn",
 		{
 			type: "natural",
-			"group-kind": "values-first",
-			"ignore-case": true,
-			"ignore-alias": true,
+			groupKind: "values-first",
+			ignoreCase: true,
+			ignoreAlias: true,
 		},
 	],
 	"perfectionist/sort-exports": [
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
+			ignoreCase: true,
 		},
 	],
 	"perfectionist/sort-imports": [
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
-			"newlines-between": "always",
+			ignoreCase: true,
+			newlinesBetween: "always",
 			groups: [
 				["builtin", "builtin-type"],
 				["external", "external-type"],
@@ -217,7 +217,7 @@ const rules = {
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
+			ignoreCase: true,
 			groups: [
 				"name",
 				"id",
@@ -237,7 +237,7 @@ const rules = {
 				"unknown",
 				"shorthand",
 			],
-			"custom-groups": {
+			customGroups: {
 				name: "name",
 				id: "id",
 				class: ["class", "className"],
@@ -260,18 +260,18 @@ const rules = {
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
+			ignoreCase: true,
 		},
 	],
 	"perfectionist/sort-interfaces": [
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
-			"optionality-order": "required-first",
-			"partition-by-new-line": true,
+			ignoreCase: true,
+			groupKind: "required-first",
+			partitionByNewLine: true,
 			groups: ["id", "unknown"],
-			"custom-groups": {
+			customGroups: {
 				id: "id",
 			},
 		},
@@ -280,17 +280,17 @@ const rules = {
 			"warn",
 			{
 				type: "natural",
-				"ignore-case": true,
-				"partition-by-new-line": true,
-				"partition-by-comment": true,
+				ignoreCase: true,
+				partitionByNewLine: true,
+				partitionByComment: true,
 			},
 		], */
 	"perfectionist/sort-named-exports": [
 		"warn",
 		{
 			type: "natural",
-			"ignore-case": true,
-			"group-kind": "values-first",
+			ignoreCase: true,
+			groupKind: "values-first",
 		},
 	],
 
@@ -349,12 +349,29 @@ const rules = {
 	"@typescript-eslint/no-inferrable-types": ["off"],
 	"@typescript-eslint/no-empty-interface": ["warn", { allowSingleExtends: true }],
 	"@typescript-eslint/no-explicit-any": ["off"],
-	"@typescript-eslint/no-unused-vars": [
-		"off",
+	"@typescript-eslint/no-require-imports": [
+		"warn",
 		{
-			// args: "none",
-			// argsIgnorePattern: "^_",
-			// varsIgnorePattern: "^_",
+			allow: [
+				"/package\\.json$",
+			]
+		},
+	],
+	"@typescript-eslint/no-empty-object-type": [
+		"warn",
+		{
+			allowInterfaces: "with-single-extends",
+			allowObjectTypes: "never",
+		},
+	],
+	"no-unused-expressions": "off",
+	"@typescript-eslint/no-unused-expressions": "off",
+	"@typescript-eslint/no-unused-vars": [
+		"warn",
+		{
+			args: "none",
+			argsIgnorePattern: "^_",
+			varsIgnorePattern: "^_",
 			caughtErrorsIgnorePattern: "^_",
 			destructuredArrayIgnorePattern: "^_",
 		},
@@ -522,7 +539,7 @@ const rules = {
 
 	"unused-imports/no-unused-imports": "warn",
 	"unused-imports/no-unused-vars": [
-		"warn",
+		"off",
 		{
 			"vars": "all",
 			"varsIgnorePattern": "^_",
@@ -565,7 +582,35 @@ export default function eslintConfig(options: IOptions) {
 		eslintJs.configs.recommended,
 		...tsEslint.configs.recommended,
 		{
+			files: [
+				// "eslint.config.*",
+				"**/node_modules",
+				"**/vendor",
+				"**/temp/**",
+				"**/dist/**",
+				"**/build/**"
+			],
+
+			rules: {
+				"no-unused-vars": "off",
+				"@typescript-eslint/no-unused-vars": "off",
+				"no-undef": "off",
+				"no-unused-expressions": "off",
+				"no-var": "off",
+				"no-tabs": "off",
+				indent: "off",
+			},
+		},
+		{
 			files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+			ignores: [
+				// "eslint.config.*",
+				"**/node_modules",
+				"**/vendor",
+				"**/temp/**",
+				"**/dist/**",
+				"**/build/**",
+			],
 			settings: {
 				// ecmascript: 6,
 				react: {
@@ -588,14 +633,6 @@ export default function eslintConfig(options: IOptions) {
 					...globals.node,
 				},
 			},
-			ignores: [
-				// "eslint.config.*",
-				"**/node_modules",
-				"**/vendor",
-				"**/temp/**",
-				"**/dist/**",
-				"**/build/**",
-			],
 			plugins: {
 				// import: importPlugin,
 				"@typescript-eslint": tsEslint.plugin,
@@ -608,14 +645,6 @@ export default function eslintConfig(options: IOptions) {
 		},
 		{
 			files: ["**/*.cjs", "**/*.cts"],
-			languageOptions: {
-				ecmaVersion: 2022,
-				sourceType: "commonjs",
-				globals: {
-					...globals.node,
-					...globals.amd,
-				},
-			},
 			ignores: [
 				// "eslint.config.*",
 				"**/node_modules",
@@ -624,6 +653,14 @@ export default function eslintConfig(options: IOptions) {
 				"**/dist/**",
 				"**/build/**",
 			],
+			languageOptions: {
+				ecmaVersion: 2022,
+				sourceType: "commonjs",
+				globals: {
+					...globals.node,
+					...globals.amd,
+				},
+			},
 			plugins: {
 				// import: importPlugin,
 				"@typescript-eslint": tsEslint.plugin,
@@ -632,7 +669,11 @@ export default function eslintConfig(options: IOptions) {
 				"unused-imports": unusedImports,
 			},
 
-			rules,
+			rules: {
+				...rules,
+
+				"@typescript-eslint/no-require-imports": "off",
+			},
 		},
 		{
 			...packageJson,
