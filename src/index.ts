@@ -232,6 +232,7 @@ const rules = {
 				"disabled",
 				"direction",
 				"language",
+				"ref",
 				"assign",
 				"event",
 				"unknown",
@@ -251,6 +252,7 @@ const rules = {
 				disabled: "disabled",
 				direction: "direction",
 				language: "language",
+				ref: "ref",
 				assign: "assign",
 				event: "on*",
 			},
@@ -522,6 +524,7 @@ const rules = {
 		"error",
 		{
 			ignore: [
+				"ref",
 				"assign",
 				"class",
 				"innerHTML",
