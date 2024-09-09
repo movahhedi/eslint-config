@@ -2,7 +2,7 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
 	entry: [
-		"src/index.ts",
+		"src/eslint.ts",
 		"src/prettier.ts",
 		"src/stylelint.ts",
 	],

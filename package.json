@@ -20,14 +20,14 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"default": "./dist/index.js"
+			"import": "./dist/eslint.js",
+			"require": "./dist/eslint.cjs",
+			"default": "./dist/eslint.js"
 		},
 		"./eslint": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"default": "./dist/index.js"
+			"import": "./dist/eslint.js",
+			"require": "./dist/eslint.cjs",
+			"default": "./dist/eslint.js"
 		},
 		"./prettier": {
 			"import": "./dist/prettier.js",
@@ -40,8 +40,8 @@
 			"default": "./dist/stylelint.js"
 		}
 	},
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./dist/eslint.js",
+	"types": "./dist/eslint.d.ts",
 	"files": [
 		"dist"
 	],

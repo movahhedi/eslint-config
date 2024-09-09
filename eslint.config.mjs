@@ -1,3 +1,5 @@
-import config from "./dist/index.js";
+import { eslintConfig } from "./dist/eslint.js";
 
-export default config();
+export default eslintConfig({
+	tsconfig: "tsconfig.json",
+});

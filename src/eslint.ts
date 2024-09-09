@@ -1,23 +1,24 @@
+/* eslint-disable max-lines */
 // cspell:ignore chunkname lestin endregion camelcase
 
-import eslintJs from "@eslint/js";
+import EslintJs from "@eslint/js";
 import { defineFlatConfig } from "eslint-define-config";
 // import { typescriptEslintParser } from "@typescript-eslint/parser";
 // import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
-// import importPlugin from "eslint-plugin-import";
-import perfectionist from "eslint-plugin-perfectionist";
-import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
-import reactPlugin from "eslint-plugin-react";
 // import jsoncPlugin from "eslint-plugin-jsonc";
+import PackageJson from "eslint-plugin-package-json/configs/recommended";
+// import importPlugin from "eslint-plugin-import";
+import Perfectionist from "eslint-plugin-perfectionist";
+import PrettierPluginRecommended from "eslint-plugin-prettier/recommended";
+import ReactPlugin from "eslint-plugin-react";
+import UnusedImports from "eslint-plugin-unused-imports";
 // import redosPlugin from "eslint-plugin-redos";
-import globals from "globals";
-import tsEslint from "typescript-eslint";
-import packageJson from "eslint-plugin-package-json/configs/recommended";
-import unusedImports from "eslint-plugin-unused-imports";
+import Globals from "globals";
+import TsEslint from "typescript-eslint";
 
 const longParentPath =
 	"{#,%,.," +
-	Array.from({ length: 10 }, (_, i) => "../".repeat(i + 1).slice(0, -1)).join(",") +
+	Array.from({ length: 10 }, (a, i) => "../".repeat(i + 1).slice(0, -1)).join(",") +
 	"}";
 
 //#region import plugin rules
@@ -321,7 +322,9 @@ const rules = {
 		"warn",
 		{
 			exceptions: {
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				VariableDeclarator: true,
+				// eslint-disable-next-line @typescript-eslint/naming-convention
 				FunctionExpression: true,
 			},
 		},
@@ -354,9 +357,7 @@ const rules = {
 	"@typescript-eslint/no-require-imports": [
 		"warn",
 		{
-			allow: [
-				"/package\\.json$",
-			]
+			allow: ["/package\\.json$"],
 		},
 	],
 	"@typescript-eslint/no-empty-object-type": [
@@ -544,12 +545,12 @@ const rules = {
 	"unused-imports/no-unused-vars": [
 		"off",
 		{
-			"vars": "all",
-			"varsIgnorePattern": "^_",
-			"args": "after-used",
-			"argsIgnorePattern": "^_",
+			vars: "all",
+			varsIgnorePattern: "^_",
+			args: "after-used",
+			argsIgnorePattern: "^_",
 		},
-	]
+	],
 };
 //#endregion
 
@@ -580,10 +581,11 @@ interface IOptions {
 	tsconfig?: string;
 }
 
-export default function eslintConfig(options: IOptions) {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export function eslintConfig(options: IOptions) {
 	return defineFlatConfig([
-		eslintJs.configs.recommended,
-		...tsEslint.configs.recommended,
+		EslintJs.configs.recommended,
+		...TsEslint.configs.recommended,
 		{
 			files: [
 				// "eslint.config.*",
@@ -591,7 +593,7 @@ export default function eslintConfig(options: IOptions) {
 				"**/vendor",
 				"**/temp/**",
 				"**/dist/**",
-				"**/build/**"
+				"**/build/**",
 			],
 
 			rules: {
@@ -623,25 +625,25 @@ export default function eslintConfig(options: IOptions) {
 			languageOptions: {
 				ecmaVersion: 2022,
 				sourceType: "module",
-				parser: tsEslint.parser,
+				parser: TsEslint.parser,
 				parserOptions: {
-					parser: tsEslint.parser,
+					parser: TsEslint.parser,
 					project: options.tsconfig,
 					ecmaFeatures: {
 						jsx: true,
 					},
 				},
 				globals: {
-					...globals.browser,
-					...globals.node,
+					...Globals.browser,
+					...Globals.node,
 				},
 			},
 			plugins: {
 				// import: importPlugin,
-				"@typescript-eslint": tsEslint.plugin,
-				react: reactPlugin,
-				perfectionist,
-				"unused-imports": unusedImports,
+				"@typescript-eslint": TsEslint.plugin,
+				react: ReactPlugin,
+				perfectionist: Perfectionist,
+				"unused-imports": UnusedImports,
 			},
 
 			rules,
@@ -660,16 +662,16 @@ export default function eslintConfig(options: IOptions) {
 				ecmaVersion: 2022,
 				sourceType: "commonjs",
 				globals: {
-					...globals.node,
-					...globals.amd,
+					...Globals.node,
+					...Globals.amd,
 				},
 			},
 			plugins: {
 				// import: importPlugin,
-				"@typescript-eslint": tsEslint.plugin,
-				react: reactPlugin,
-				perfectionist,
-				"unused-imports": unusedImports,
+				"@typescript-eslint": TsEslint.plugin,
+				react: ReactPlugin,
+				perfectionist: Perfectionist,
+				"unused-imports": UnusedImports,
 			},
 
 			rules: {
@@ -679,13 +681,13 @@ export default function eslintConfig(options: IOptions) {
 			},
 		},
 		{
-			...packageJson,
+			...PackageJson,
 			/* plugins: {
 				jsonc: jsoncPlugin,
 			}, */
 			rules: {
 				// ...packageJsonRules,
-				...packageJson.rules,
+				...PackageJson.rules,
 				"package-json/order-properties": [
 					"warn",
 					{
@@ -702,10 +704,11 @@ export default function eslintConfig(options: IOptions) {
 						// "config",
 					],
 				],
+				"package-json/valid-package-def": "off",
 			},
 		},
 
-		prettierPluginRecommended,
+		PrettierPluginRecommended,
 		{
 			rules: {
 				"prettier/prettier": "warn",
