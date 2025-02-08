@@ -6,7 +6,7 @@ export function prettierConfig(options: Parameters<typeof defineConfig>[0]) {
 		useTabs: true,
 		tabWidth: 4,
 		semi: true,
-		printWidth: 90,
+		printWidth: 105,
 		singleQuote: false,
 		singleAttributePerLine: false,
 		jsxSingleQuote: false,

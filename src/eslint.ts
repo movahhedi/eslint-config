@@ -338,7 +338,7 @@ const rules = {
 	"max-len": [
 		"off",
 		{
-			code: 90,
+			code: 105,
 			tabWidth: 4,
 			ignoreComments: true,
 			ignoreTrailingComments: true,
