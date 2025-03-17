@@ -1,8 +1,9 @@
 import { defineConfig } from "stylelint-define-config";
 
-type Options = Parameters<typeof defineConfig>[0];
+type IOptions = Parameters<typeof defineConfig>[0];
 
-export function stylelintConfig(rules: Options["rules"], options: Options) {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export function stylelintConfig(rules: IOptions["rules"], options: IOptions) {
 	return defineConfig({
 		extends: ["stylelint-config-standard-scss"],
 		plugins: ["stylelint-scss", "stylelint-order"],
@@ -343,13 +344,7 @@ export function stylelintConfig(rules: Options["rules"], options: Options) {
 						groupName: "all",
 						emptyLineBefore: "threshold",
 						noEmptyLineBetween: true,
-						properties: [
-							"z-index",
-							"box-sizing",
-							"resize",
-							"scrollbar",
-							"cursor",
-						],
+						properties: ["z-index", "box-sizing", "resize", "scrollbar", "cursor"],
 					},
 					{
 						groupName: "all",

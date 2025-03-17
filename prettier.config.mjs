@@ -1,3 +1,3 @@
-import config from "./dist/prettier.js";
+import { prettierConfig } from "./dist/prettier.js";
 
-export default config;
+export default prettierConfig();

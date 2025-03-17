@@ -1,5 +1,6 @@
 import { defineConfig } from "prettier-define-config";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export function prettierConfig(options: Parameters<typeof defineConfig>[0]) {
 	return defineConfig({
 		trailingComma: "all",
@@ -16,5 +17,5 @@ export function prettierConfig(options: Parameters<typeof defineConfig>[0]) {
 		htmlWhitespaceSensitivity: "strict",
 
 		...options,
-	})
+	});
 }

@@ -2,7 +2,7 @@
 // cspell:ignore chunkname lestin endregion camelcase
 
 import EslintJs from "@eslint/js";
-import { defineFlatConfig } from "eslint-define-config";
+import { type Linter } from "eslint";
 // import { typescriptEslintParser } from "@typescript-eslint/parser";
 // import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
 // import jsoncPlugin from "eslint-plugin-jsonc";
@@ -12,18 +12,19 @@ import Perfectionist from "eslint-plugin-perfectionist";
 import PrettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import ReactPlugin from "eslint-plugin-react";
 import UnusedImports from "eslint-plugin-unused-imports";
+import { defineConfig } from "eslint/config";
 // import redosPlugin from "eslint-plugin-redos";
 import Globals from "globals";
 import TsEslint from "typescript-eslint";
 
 const longParentPath =
-	"{#,%,.," +
-	Array.from({ length: 10 }, (a, i) => "../".repeat(i + 1).slice(0, -1)).join(",") +
-	"}";
+	"{#,%,.," + Array.from({ length: 10 }, (a, i) => "../".repeat(i + 1).slice(0, -1)).join(",") + "}";
+
+type IRulesRecord = Linter.Config["rules"];
 
 //#region import plugin rules
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const importPluginRules = {
+const importPluginRules: IRulesRecord = {
 	"sort-imports": [
 		"off",
 		{
@@ -82,15 +83,7 @@ const importPluginRules = {
 	"import/order": [
 		"off",
 		{
-			groups: [
-				"builtin",
-				"external",
-				"internal",
-				"parent",
-				"index",
-				"sibling",
-				"unknown",
-			],
+			groups: ["builtin", "external", "internal", "parent", "index", "sibling", "unknown"],
 			pathGroups: [
 				{
 					pattern: "lestin",
@@ -175,7 +168,7 @@ const importPluginRules = {
 //#endregion
 
 //#region main rules
-const rules = {
+const rules: IRulesRecord = {
 	// "redos/no-vulnerable": "error",
 
 	"perfectionist/sort-named-imports": [
@@ -207,6 +200,7 @@ const rules = {
 				["parent", "parent-type"],
 				["index", "index-type"],
 				["sibling", "sibling-type"],
+				"style",
 				"side-effect-style",
 				"side-effect",
 				"object",
@@ -223,39 +217,53 @@ const rules = {
 				"name",
 				"id",
 				"class",
+				"type",
 				"label",
 				"componentText",
+				"placeholder",
 				"checked",
 				"changedChecked",
 				"value",
 				"changedValue",
 				"src",
-				"disabled",
 				"direction",
+				"disabled",
+				"hidden",
 				"language",
 				"ref",
 				"assign",
+				"maxLength",
 				"event",
+				"width",
+				"height",
+				"style",
 				"unknown",
 				"shorthand",
 			],
 			customGroups: {
-				name: "name",
-				id: "id",
-				class: ["class", "className"],
-				label: "label",
-				componentText: ["checkboxText", "radioText"],
-				checked: "checked",
-				changedChecked: "changedChecked",
-				value: "value",
-				changedValue: "changedValue",
-				src: "src",
-				disabled: "disabled",
-				direction: "direction",
-				language: "language",
-				ref: "ref",
-				assign: "assign",
-				event: "on*",
+				name: "^name$",
+				id: "^id$",
+				class: "^class(Name)?$",
+				type: "^(input)?[tT]ype?$",
+				label: "^label$",
+				componentText: "^(checkboxText|radioText|text|message)$",
+				placeholder: "^placeholder$",
+				checked: "^checked$",
+				changedChecked: "^changedChecked$",
+				value: "^value$",
+				changedValue: "^changedValue$",
+				src: "^src$",
+				disabled: "^disabled$",
+				hidden: "^hidden$",
+				direction: ["^direction$", "^dir$"],
+				language: "^language$",
+				ref: "^ref$",
+				assign: "^assign$",
+				event: "^on.+",
+				maxLength: "^maxLength$",
+				width: "^width$",
+				height: "^height$",
+				style: "^style$",
 			},
 		},
 	],
@@ -280,14 +288,14 @@ const rules = {
 		},
 	],
 	/* "perfectionist/sort-objects": [
-			"warn",
-			{
-				type: "natural",
-				ignoreCase: true,
-				partitionByNewLine: true,
-				partitionByComment: true,
-			},
-		], */
+		"warn",
+		{
+			type: "natural",
+			ignoreCase: true,
+			partitionByNewLine: true,
+			partitionByComment: true,
+		},
+	], */
 	"perfectionist/sort-named-exports": [
 		"warn",
 		{
@@ -401,7 +409,7 @@ const rules = {
 			leadingUnderscore: "forbid",
 			trailingUnderscore: "forbid",
 			custom: {
-				regex: "(^[xzv]?(?:_?[A-Z][a-z]*\\d*)*$)|(^_$)",
+				regex: "(^[xzv]?(?:_?[A-Z0-9][a-z0-9]*\\d*)*$)|(^_$)",
 				match: true,
 			},
 		},
@@ -426,7 +434,7 @@ const rules = {
 			selector: "variable",
 			format: [],
 			custom: {
-				regex: "^(_|([A-Z]?[a-z]+(?:_?[A-Z][a-z]*\\d*)*\\d*))$",
+				regex: "^(_|([A-Z]?[a-z]+(?:_?[A-Z0-9][a-z0-9]*\\d*)*\\d*))$",
 				match: true,
 			},
 		},
@@ -435,7 +443,7 @@ const rules = {
 				"types": ["function"],
 				"format": [],
 				"custom": {
-					"regex": "^[A-Z]?[a-z]+(?:_?[A-Z][a-z]*\\d*)*\\d*$",
+					"regex": "^[A-Z]?[a-z0-9]+(?:_?[A-Z0-9][a-z0-9]*\\d*)*\\d*$",
 					"match": true
 				}
 			}, */
@@ -445,7 +453,7 @@ const rules = {
 			// "modifiers": ["const"],
 			format: [],
 			custom: {
-				regex: "(^[a-z]+(?:_?[A-Z][a-z]*\\d*)*$)|(^_$)",
+				regex: "(^[a-z]+(?:_?[A-Z0-9][a-z0-9]*\\d*)*$)|(^_$)",
 				match: true,
 			},
 		},
@@ -453,7 +461,7 @@ const rules = {
 			selector: "enumMember",
 			format: [],
 			custom: {
-				regex: "^[A-Z][a-z]+(?:_?[A-Z][a-z]*\\d*)*$",
+				regex: "^[A-Z][a-z]+(?:_?[A-Z0-9][a-z0-9]*\\d*)*$",
 				match: true,
 			},
 		},
@@ -495,7 +503,7 @@ const rules = {
 			selector: "class",
 			format: [],
 			custom: {
-				regex: "^[A-Z][a-z]+(?:_?[A-Z][a-z]+\\d*)*$",
+				regex: "^[A-Z][a-z]+(?:_?[A-Z0-9][a-z0-9]+\\d*)*$",
 				match: true,
 			},
 		},
@@ -504,7 +512,7 @@ const rules = {
 			format: [],
 			prefix: ["I"],
 			custom: {
-				regex: "^[A-Z][a-z]+(?:_?[A-Z][a-z]+\\d*)*$",
+				regex: "^[A-Z][a-z]+(?:_?[A-Z0-9][a-z0-9]+\\d*)*$",
 				match: true,
 			},
 		},
@@ -512,7 +520,7 @@ const rules = {
 			selector: "typeLike",
 			format: [],
 			custom: {
-				regex: "^[A-Z][a-z]+(?:_?[A-Z][a-z]+\\d*)*$",
+				regex: "^[A-Z][a-z]+(?:_?[A-Z0-9][a-z0-9]+\\d*)*$",
 				match: true,
 			},
 		},
@@ -583,9 +591,9 @@ interface IOptions {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function eslintConfig(options: IOptions) {
-	return defineFlatConfig([
+	return defineConfig([
 		EslintJs.configs.recommended,
-		...TsEslint.configs.recommended,
+		...(TsEslint.configs.recommended as any),
 		{
 			files: [
 				// "eslint.config.*",
