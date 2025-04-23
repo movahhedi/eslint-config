@@ -6,7 +6,7 @@ import { type Linter } from "eslint";
 // import { typescriptEslintParser } from "@typescript-eslint/parser";
 // import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
 // import jsoncPlugin from "eslint-plugin-jsonc";
-import PackageJson from "eslint-plugin-package-json/configs/recommended";
+import PackageJson from "eslint-plugin-package-json";
 // import importPlugin from "eslint-plugin-import";
 import Perfectionist from "eslint-plugin-perfectionist";
 import PrettierPluginRecommended from "eslint-plugin-prettier/recommended";
@@ -689,13 +689,13 @@ export function eslintConfig(options: IOptions) {
 			},
 		},
 		{
-			...PackageJson,
+			...PackageJson.configs.recommended,
 			/* plugins: {
 				jsonc: jsoncPlugin,
 			}, */
 			rules: {
 				// ...packageJsonRules,
-				...PackageJson.rules,
+				...PackageJson.configs.recommended.rules,
 				"package-json/order-properties": [
 					"warn",
 					{
