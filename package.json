@@ -51,26 +51,26 @@
 		"update": "npx npm-check-updates -i"
 	},
 	"dependencies": {
-		"@eslint/js": "^9.22.0",
-		"eslint": "^9.22.0",
-		"eslint-config-prettier": "^10.1.1",
+		"@eslint/js": "^9.25.1",
+		"eslint": "^9.25.1",
+		"eslint-config-prettier": "^10.1.2",
 		"eslint-define-config": "^2.1.0",
-		"eslint-plugin-package-json": "^0.26.3",
-		"eslint-plugin-perfectionist": "^4.10.1",
-		"eslint-plugin-prettier": "^5.2.3",
-		"eslint-plugin-react": "^7.37.4",
+		"eslint-plugin-package-json": "^0.30.0",
+		"eslint-plugin-perfectionist": "^4.12.1",
+		"eslint-plugin-prettier": "^5.2.6",
+		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-unused-imports": "^4.1.4",
 		"globals": "^16.0.0",
 		"jsonc-eslint-parser": "^2.4.0",
 		"prettier": "^3.5.3",
-		"typescript-eslint": "^8.26.1"
+		"typescript-eslint": "^8.31.0"
 	},
 	"devDependencies": {
-		"npm-check-updates": "^17.1.15",
+		"npm-check-updates": "^18.0.0",
 		"prettier-define-config": "^1.0.1",
-		"stylelint-define-config": "^16.15.0",
+		"stylelint-define-config": "^16.18.0",
 		"tsup": "^8.4.0",
-		"typescript": "^5.8.2"
+		"typescript": "^5.8.3"
 	},
 	"packageManager": "yarn@4.3.1"
 }
